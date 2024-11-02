@@ -1,0 +1,42 @@
+model: "mlx-model"
+
+train: true
+
+data: "data"
+
+seed: 42
+
+lora_layers: 32
+
+batch_size: 1
+
+iters: 1000
+
+val_batches: 50
+
+learning_rate: 1e-6
+
+steps_per_report: 10
+
+steps_per_eval: 200
+
+resume_adapter_file: null
+
+adapter_path: "adapters"
+
+save_every: 1000
+
+test: false
+
+test_batches: 100
+
+max_seq_length: 2048
+
+grad_checkpoint: true
+
+lora_parameters:
+  keys: ["self_attn.o_proj", "self_attn.qkv_proj"]
+  rank: 64
+  alpha: 64
+  scale: 4.0
+  dropout: 0.1
