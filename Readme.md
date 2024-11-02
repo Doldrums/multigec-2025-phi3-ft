@@ -21,7 +21,7 @@ lora_parameters:
   keys: ["self_attn.o_proj", "self_attn.qkv_proj"] # keys recommened by Phi-3 finetune cookbook.
 ```
 
-After training, model can be merged with adapters in single compiled model by running `./mlx-fuze.sh <minimal|fluency>`
+After training, model can be merged with adapters in single compiled model by running `./mlx-fuse.sh <minimal|fluency>`
 
 ## Evaluation:
 

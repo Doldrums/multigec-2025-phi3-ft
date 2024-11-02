@@ -75,12 +75,29 @@ def process_corpus_files(orig_folder, sub_folder, corpus_name, split, copy_sub1=
             orig_md = handle_in.read()
         handle_in.close()
         orig_dict = md_to_dict(orig_md)
+
         print(f"Number of essays in original file = {len(orig_dict)}")
 
         # make a dictionary of original essays
         for essay_id, txt in orig_dict.items():
             txt = txt.replace("\n", "\t")
-            corpus_dict[essay_id] = {"orig": txt, "subs": []}
+            corpus_dict[essay_id] = {"orig": txt, "refs": [], "subs": []}
+
+        ref_files = [f for f in os.listdir(orig_folder) if f.startswith(
+            corpus_name) and "ref" in f]
+
+        n_refs = len(ref_files)
+
+        for i in range(n_refs):
+            with open(os.path.join(orig_folder, f"{corpus_name}-ref{i+1}-{split}.md")) as handle_in:
+                ref_md = handle_in.read()
+
+            handle_in.close()
+
+            ref_dict = md_to_dict(ref_md)
+            for essay_id, txt in ref_dict.items():
+                txt = txt.replace("\n", "\t")
+                corpus_dict[essay_id]["refs"].append(txt)
 
         # make a dictionary of corrected essays from the submissions file
         for sub_file in sub_files:
@@ -146,6 +163,23 @@ def process_corpus_files(orig_folder, sub_folder, corpus_name, split, copy_sub1=
                     else:
                         handle_out.write("!\n")
         handle_out.close()
+
+        for i in range(n_refs):
+            ref_file_name = os.path.join(
+                orig_folder, f"{corpus_name}-ref-{i + 1}.m2").lower()
+            with open(ref_file_name, "a") as handle_out:
+                for essay_id in corpus_dict:
+                    try:
+                        handle_out.write(
+                            corpus_dict[essay_id]["refs"][i] + "\n")
+                    # if not found (tho i think the missing essay thing above prevents this), output an empty line
+                    except IndexError:
+                        if copy_sub1:
+                            handle_out.write(
+                                corpus_dict[essay_id]["refs"][i] + "\n")
+                        else:
+                            handle_out.write("!\n")
+            handle_out.close()
 
 
 def split_to_parfiles_all(orig_folder, sub_folder, split, copy_sub1=False):
