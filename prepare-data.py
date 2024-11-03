@@ -11,9 +11,9 @@ DATA_PATH = "data"
 MODE = sys.argv[1]
 
 if MODE == "minimal":
-    task_prompt = "Make the smallest possible change in order to make the essay grammatically correct. Change as few words as possible. Do not rephrase parts of the essay that are already grammatical. Do not change the meaning of the essay by adding or removing information. If the essay is already grammatically correct, you should output the original essay without changing anything."
+    task_prompt = "Make the smallest possible change in order to make the essay grammatically correct. Change as few words as possible. Do not rephrase parts of the essay that are already grammatical. Do not change the meaning of the essay by adding or removing information. Pay attention to the plurals, articles, compound words. If the essay is already grammatically correct, you should output the original essay without changing anything."
 else:
-    task_prompt = "You may rephrase parts of the essay to improve fluency. Do not change the meaning of the essay by adding or removing information. If the essay is already grammatically correct and fluent, you should output the original essay without changing anything."
+    task_prompt = "You may rephrase parts of the essay to improve fluency. Do not change the meaning of the essay by adding or removing information. Pay attention to the plurals, articles, compound words. If the essay is already grammatically correct and fluent, you should output the original essay without changing anything."
 
 
 def text_format(row):

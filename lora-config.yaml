@@ -8,7 +8,7 @@ seed: 42
 
 lora_layers: 32
 
-batch_size: 1
+batch_size: 2
 
 iters: 1000
 
@@ -36,7 +36,7 @@ grad_checkpoint: true
 
 lora_parameters:
   keys: ["self_attn.o_proj", "self_attn.qkv_proj"]
-  rank: 64
-  alpha: 64
-  scale: 4.0
-  dropout: 0.1
+  rank: 96
+  alpha: 120
+  scale: 6.0
+  dropout: 0.15
