@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # More languages can be added from https://github.com/spraakbanken/multigec-2025-participants/
-LANGUAGES = ["english", "italian"]
+LANGUAGES = os.listdir("languages")
 SPLITS = ["dev", "train"]
 
 
@@ -19,24 +19,34 @@ def md_to_dict(md_path):
 
 
 def load_folder(folder):
-    splits = {split: {"orig": [], "ref1": []} for split in SPLITS}
+    splits = {split: {"orig": [], "ref1": [], "ref2": []} for split in SPLITS}
 
     files = os.listdir(folder)
 
     for split in SPLITS:
-        parts = [
-            file_path for file_path in files if file_path.endswith(f"{split}.md")
-        ]
-        base_name = "-".join(parts[0].split("-")[0:-2])
+        datasets = set(
+            "-".join(file_path.split("-")[0:-2]) for file_path in files if file_path.endswith(f"{split}.md")
+        )
 
-        orig_name = os.path.join(folder, f"{base_name}-orig-{split}.md")
-        ref1_name = os.path.join(folder, f"{base_name}-ref1-{split}.md")
+        for dataset in datasets:
+            orig_name = os.path.join(folder, f"{dataset}-orig-{split}.md")
+            ref1_name = os.path.join(folder, f"{dataset}-ref1-{split}.md")
+            ref2_name = os.path.join(folder, f"{dataset}-ref2-{split}.md")
 
-        orig, ref1 = md_to_dict(orig_name), md_to_dict(ref1_name)
+            orig = md_to_dict(orig_name)
+            ref1 = md_to_dict(ref1_name)
+            ref2 = None
 
-        for key in orig.keys():
-            splits[split]["orig"].append(orig[key])
-            splits[split]["ref1"].append(ref1[key])
+            if os.path.exists(ref2_name):
+                ref2 = md_to_dict(ref2_name)
+
+            for key in orig.keys():
+                splits[split]["orig"].append(orig[key])
+                splits[split]["ref1"].append(ref1[key])
+                if ref2 is not None and key in ref2:
+                    splits[split]["ref2"].append(ref2[key])
+                else:
+                    splits[split]["ref2"].append(ref1[key])
 
     for split in SPLITS:
         splits[split] = pd.DataFrame.from_dict(splits[split])

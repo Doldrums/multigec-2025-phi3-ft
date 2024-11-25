@@ -35,6 +35,7 @@ italian
 |-- Readme.md
 |-- it-merlin-orig-dev.md
 |-- it-merlin-orig-train.md
+|-- it-merlin-orig-test.md
 |-- it-merlin-ref1-dev.md
 `-- it-merlin-ref1-train.md
 ```

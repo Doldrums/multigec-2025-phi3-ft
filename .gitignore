@@ -3,3 +3,4 @@ __pycache__
 mlx-model/**
 adapters/**
 models/**
+**/*.DS_Store

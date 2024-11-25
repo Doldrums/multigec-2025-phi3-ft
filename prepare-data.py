@@ -17,12 +17,17 @@ else:
 
 
 def text_format(row):
-    return f"<|system|>{task_prompt}<|end|><|user|>{row.orig}<|end|><|assistant|>{row.ref1}<|end|>"
+    if MODE == "minimal":
+        ref = row.ref1
+    else:
+        ref = row.ref2
+
+    return f"<|system|>{task_prompt}<|end|><|user|>{row.orig}<|end|><|assistant|>{ref}<|end|>"
 
 
 merged_data = {split: [] for split in SPLITS}
 for language in LANGUAGES:
-    lang_corpus = load_folder(language)
+    lang_corpus = load_folder(os.path.join("languages", language))
 
     for split in SPLITS:
         merged_data[split].append(lang_corpus[split])

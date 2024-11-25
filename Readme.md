@@ -4,13 +4,13 @@
 
 ## Data Preparation:
 
-Firstly download all available datasets from https://github.com/spraakbanken/multigec-2025-participants/ and place in separate folders. See Readme.md in `english` and `italian` folder as example.
+Firstly download all available datasets from https://github.com/spraakbanken/multigec-2025-participants/ and place in separate folders. See Readme.md in `languages/english` and `languages/italian` folder as example.
 
 Then run `python3.11 prepare-data.py <minimal|fluency>`, this will convert and merge all datasets in single MLX dataset.
 
 ## Model Preparation:
 
-Run `python3.11 mlx-convert.py`, and wait for while. It will download and quantize Microsoft Phi3-Mini-4k model.
+Run `python3.11 mlx-convert.py`, and wait for while. It will download and quantize Microsoft Phi3-Mini-128k model.
 
 ## Training:
 

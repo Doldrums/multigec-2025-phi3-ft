@@ -25,13 +25,14 @@ Diane Nicholls, Andrew Caines & Paula Buttery (2024). The Write & Improve Corpus
 
 # Note:
 
-Place files as shown:
+Also download `en-writeandimprove2024-orig-test.md` from https://github.com/spraakbanken/multigec-2025-participants/tree/main/english/writeandimprove, and place files as shown:
 
 ```txt
 english
 |-- Readme.md
 |-- en-writeandimprove2024-orig-dev.md
 |-- en-writeandimprove2024-orig-train.md
+|-- en-writeandimprove2024-orig-test.md
 |-- en-writeandimprove2024-ref1-dev.md
 `-- en-writeandimprove2024-ref1-train.md
 ```

@@ -29,7 +29,7 @@ def dict_to_md(essay_dict):
 
 def run_model(essay):
     response = generate(
-        model, tokenizer, prompt=f"<|system|>{task_prompt}<|end|><|user|>{essay}<|end|>",
+        model, tokenizer, prompt=f"<|system|>{task_prompt}<|end|><|user|>{essay}<|end|><|assistant|>",
         temp=0.1, max_tokens=2048,
     )
     return response.replace("<|assistant|>", "").replace("<|end|>", "").strip()
