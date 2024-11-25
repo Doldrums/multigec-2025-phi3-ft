@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # More languages can be added from https://github.com/spraakbanken/multigec-2025-participants/
-LANGUAGES = os.listdir("languages")
+LANGUAGES = [file for file in os.listdir("languages") if file != ".gitignore"]
 SPLITS = ["dev", "train"]
 
 

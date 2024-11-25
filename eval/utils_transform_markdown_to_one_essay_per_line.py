@@ -166,7 +166,7 @@ def process_corpus_files(orig_folder, sub_folder, corpus_name, split, copy_sub1=
 
         for i in range(n_refs):
             ref_file_name = os.path.join(
-                orig_folder, f"{corpus_name}-ref-{i + 1}.m2").lower()
+                orig_folder, f"{corpus_name}-ref{i + 1}.m2").lower()
             with open(ref_file_name, "a") as handle_out:
                 for essay_id in corpus_dict:
                     try:

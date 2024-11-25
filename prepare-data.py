@@ -40,6 +40,7 @@ for split in SPLITS:
 for split in SPLITS:
     merged_data[split][["text"]].to_json(
         os.path.join(DATA_PATH, f"{SPLIT_MAP[split]}.jsonl"),
+        force_ascii=False,
         orient="records",
         lines=True
     )
