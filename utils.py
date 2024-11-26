@@ -2,7 +2,16 @@ import os
 import pandas as pd
 
 # More languages can be added from https://github.com/spraakbanken/multigec-2025-participants/
-LANGUAGES = [file for file in os.listdir("languages") if file != ".gitignore"]
+LANGUAGES = ["czech", "english", "german", "italian", "swedish", "ukrainian"]
+LANGUAGE_CODE = {
+    "czech": "cs",
+    "english": "en",
+    "german": "de",
+    "italian": "it",
+    "swedish": "sv",
+    "ukrainian": "uk"
+}
+LANGUAGE_CODES = [LANGUAGE_CODE[lang] for lang in LANGUAGES]
 SPLITS = ["dev", "train"]
 
 

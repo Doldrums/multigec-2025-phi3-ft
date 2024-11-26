@@ -3,10 +3,14 @@ import sys
 from tqdm import tqdm
 from mlx_lm.utils import *
 
+from utils import LANGUAGE_CODES
 from utils_transform_markdown_to_one_essay_per_line import get_corpus_names, md_to_dict
 
 
 MODE = sys.argv[1]
+LANGUAGE_FILTER = sys.argv[2].split(",") if len(
+    sys.argv) > 2 else LANGUAGE_CODES
+
 MODEL = f"../models/phi3-gec-{MODE}"
 
 if MODE == "minimal":
@@ -29,7 +33,7 @@ def dict_to_md(essay_dict):
 
 def run_model(essay):
     response = generate(
-        model, tokenizer, prompt=f"<|system|>{task_prompt}<|end|><|user|>{essay}<|end|><|assistant|>",
+        model, tokenizer, prompt=f"<|system|>{task_prompt}<|end|><|user|>{essay}<|end|>",
         temp=0.1, max_tokens=8192,
     )
     return response.replace("<|assistant|>", "").replace("<|end|>", "").strip()
@@ -37,6 +41,10 @@ def run_model(essay):
 
 corpuses = get_corpus_names("ref")
 for corpus_name in corpuses:
+    corpus_lang = corpus_name.split("-")[0]
+    if corpus_lang not in LANGUAGE_FILTER:
+        continue
+
     with open(os.path.join("ref", f"{corpus_name}-orig-dev.md")) as md:
         corpus = md_to_dict(md.read())
 
