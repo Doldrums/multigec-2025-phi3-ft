@@ -6,11 +6,11 @@ data: "data"
 
 seed: 42
 
-lora_layers: 32
+lora_layers: 48
 
 batch_size: 2
 
-iters: 1000
+iters: 3000
 
 val_batches: 50
 
@@ -36,7 +36,7 @@ grad_checkpoint: true
 
 lora_parameters:
   keys: ["self_attn.o_proj", "self_attn.qkv_proj"]
-  rank: 96
-  alpha: 120
+  rank: 128
+  alpha: 256
   scale: 6.0
-  dropout: 0.15
+  dropout: 0.1

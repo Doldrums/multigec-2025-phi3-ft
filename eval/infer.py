@@ -8,8 +8,9 @@ from utils_transform_markdown_to_one_essay_per_line import get_corpus_names, md_
 
 
 MODE = sys.argv[1]
-LANGUAGE_FILTER = sys.argv[2].split(",") if len(
-    sys.argv) > 2 else LANGUAGE_CODES
+ENABLE_SYSTEM_PROMPT = sys.argv[2] == "true" if len(sys.argv) > 2 else False
+LANGUAGE_FILTER = sys.argv[3].split(",") if len(
+    sys.argv) > 3 else LANGUAGE_CODES
 
 MODEL = f"../models/phi3-gec-{MODE}"
 
@@ -32,8 +33,10 @@ def dict_to_md(essay_dict):
 
 
 def run_model(essay):
+    system_prompt = f"<|system|>{task_prompt}<|end|>" if ENABLE_SYSTEM_PROMPT else ""
+
     response = generate(
-        model, tokenizer, prompt=f"<|system|>{task_prompt}<|end|><|user|>{essay}<|end|>",
+        model, tokenizer, prompt=f"{system_prompt}<|user|>{essay}<|end|>",
         temp=0.1, max_tokens=8192,
     )
     return response.replace("<|assistant|>", "").replace("<|end|>", "").strip()

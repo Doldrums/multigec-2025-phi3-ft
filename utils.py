@@ -28,7 +28,7 @@ def md_to_dict(md_path):
 
 
 def load_folder(folder):
-    splits = {split: {"orig": [], "ref1": [], "ref2": []} for split in SPLITS}
+    rows = []
 
     files = os.listdir(folder)
 
@@ -38,6 +38,8 @@ def load_folder(folder):
         )
 
         for dataset in datasets:
+            dataset_lang = dataset.split("-")[0]
+
             orig_name = os.path.join(folder, f"{dataset}-orig-{split}.md")
             ref1_name = os.path.join(folder, f"{dataset}-ref1-{split}.md")
             ref2_name = os.path.join(folder, f"{dataset}-ref2-{split}.md")
@@ -50,14 +52,19 @@ def load_folder(folder):
                 ref2 = md_to_dict(ref2_name)
 
             for key in orig.keys():
-                splits[split]["orig"].append(orig[key])
-                splits[split]["ref1"].append(ref1[key])
+                row = {
+                    "corpus": dataset,
+                    "lang": dataset_lang,
+                    "orig": orig[key],
+                    "ref1": ref1[key],
+                    "split": split
+                }
+
                 if ref2 is not None and key in ref2:
-                    splits[split]["ref2"].append(ref2[key])
+                    row["ref2"] = ref2[key]
                 else:
-                    splits[split]["ref2"].append(ref1[key])
+                    row["ref2"] = ref1[key]
 
-    for split in SPLITS:
-        splits[split] = pd.DataFrame.from_dict(splits[split])
+                rows.append(row)
 
-    return splits
+    return pd.DataFrame.from_dict(rows)

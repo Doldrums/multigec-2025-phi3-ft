@@ -14,7 +14,10 @@ ref
 
 ## Model inference:
 
-Run `python3.11 infer.py <minimal|fluency>` to predict fixes for all corpuses.
+Run `python3.11 infer.py <minimal|fluency> <true|false>` to predict fixes for all corpuses.
+
+First parameter controls level of edits (See more in [task description](https://github.com/spraakbanken/multigec-2025?tab=readme-ov-file#task-description))
+Second parameter disables/enables injecting of system prompt when generating
 
 ## GLEU Score:
 

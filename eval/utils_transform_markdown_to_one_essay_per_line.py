@@ -84,7 +84,7 @@ def process_corpus_files(orig_folder, sub_folder, corpus_name, split, copy_sub1=
             corpus_dict[essay_id] = {"orig": txt, "refs": [], "subs": []}
 
         ref_files = [f for f in os.listdir(orig_folder) if f.startswith(
-            corpus_name) and "ref" in f]
+            corpus_name) and "ref" in f and f.endswith(".md")]
 
         n_refs = len(ref_files)
 
