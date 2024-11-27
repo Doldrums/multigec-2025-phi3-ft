@@ -4,15 +4,15 @@ train: true
 
 data: "data"
 
-seed: 42
+seed: 1337
 
-lora_layers: 48
+lora_layers: 64
 
 batch_size: 2
 
-iters: 3000
+iters: 4000
 
-val_batches: 50
+val_batches: 100
 
 learning_rate: 1e-6
 
@@ -30,7 +30,7 @@ test: false
 
 test_batches: 100
 
-max_seq_length: 8192
+max_seq_length: 9216
 
 grad_checkpoint: true
 

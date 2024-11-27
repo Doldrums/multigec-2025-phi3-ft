@@ -4,7 +4,6 @@ from typing import List
 from gleu.count import set_tokenization
 from gleu.corpus_main import corpus_main
 
-from utils import LANGUAGE_CODES
 from utils_transform_markdown_to_one_essay_per_line import get_corpus_names
 
 MODE = sys.argv[1]
@@ -28,10 +27,6 @@ class Args:
 
 
 for corpus in corpuses:
-    corpus_lang = corpus.split("-")[0]
-    if corpus_lang not in LANGUAGE_CODES:
-        continue
-
     hypo_path = os.path.join("res", f"{corpus}-hypo{HYPO}-dev.m2")
     if not os.path.exists(hypo_path):
         continue

@@ -13,9 +13,9 @@ MODE = sys.argv[1]
 ENABLE_SYSTEM_PROMPT = sys.argv[2] == "true" if len(sys.argv) > 2 else False
 
 if MODE == "minimal":
-    task_prompt = "Make the smallest possible change in order to make the essay grammatically correct. Change as few words as possible. Do not rephrase parts of the essay that are already grammatical. Do not change the meaning of the essay by adding or removing information. Pay attention to the plurals, articles, compound words. If the essay is already grammatically correct, you should output the original essay without changing anything."
+    task_prompt = "Make minimal changes to correct grammar while preserving meaning. Leave already correct parts unchanged."
 else:
-    task_prompt = "You may rephrase parts of the essay to improve fluency. Do not change the meaning of the essay by adding or removing information. Pay attention to the plurals, articles, compound words. If the essay is already grammatically correct and fluent, you should output the original essay without changing anything."
+    task_prompt = "Rephrase to improve fluency, keeping the meaning unchanged. Leave already correct and fluent text as is."
 
 
 def text_format(row):
@@ -35,7 +35,7 @@ for language in LANGUAGES:
     merged_data.append(lang_corpus)
 
 
-merged_data = pd.concat(merged_data)
+merged_data = pd.concat(merged_data).sample(frac=1)
 merged_data["text"] = merged_data.apply(text_format, axis=1)
 
 def print_statistics():
